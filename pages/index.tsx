@@ -11,9 +11,9 @@ interface Product {
 
 export default function Home() {
   const productsData: Product[] = [
-    { id: 1, image: "../image/download-3.jpg", title: "Knurled Spitfire" },
-    { id: 2, image: "../image/download-5.jpg", title: "Diamond Cut Spitfire" },
-    { id: 3, image: "../image/download-6.jpg", title: "Kingston" },
+    { id: 1, image: "/pages/image/download-3.jpg", title: "Knurled Spitfire" },
+    { id: 2, image: "/image/download-5.jpg", title: "Diamond Cut Spitfire" },
+    { id: 3, image: "/image/download-6.jpg", title: "Kingston" },
   ];
 
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);

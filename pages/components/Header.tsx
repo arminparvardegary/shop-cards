@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
+import Image from "next/image";
 
 const Header: React.FC<{
-  selectedData: {
+  selectedData?: {
     id: number;
     title: string;
     image: string;
     quantity: number;
   }[];
   onRemoveCart: (id: number) => void;
-}> = ({ selectedData = [], onRemoveCart }) => { // Add default value for selectedData
+}> = ({ selectedData = [], onRemoveCart }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleModal = () => {
@@ -21,16 +22,15 @@ const Header: React.FC<{
       <div className="container flex justify-between w-full mb-5 mt-5">
         <div className="font-bold text-2xl">LOGO</div>
         <div className="flex justify-center gap-2">
-          <div
-            onClick={toggleModal}
-            className="relative"
-          >
-            <img
+          <div onClick={toggleModal} className="relative">
+            <Image
               className="w-6 mr-5 cursor-pointer hover:opacity-70"
-              src="../shop.svg"
+              src="/shop.svg"
               alt="shop card"
+              width={24}
+              height={24}
             />
-            <span className="absolute bottom-0 -left-2 bg-[#586053] w-5 h-5 text-center text-white text-sm  rounded-full">
+            <span className="absolute bottom-0 -left-2 bg-[#586053] w-5 h-5 text-center text-white text-sm rounded-full">
               {selectedData.length}
             </span>
           </div>
@@ -42,16 +42,18 @@ const Header: React.FC<{
         <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
           <div className="w-200 h-200 bg-white flex justify-center relative">
             <div className="w-full flex flex-col justify-start mt-30">
-              {selectedData && selectedData.length > 0 ? (
+              {selectedData.length > 0 ? (
                 selectedData.map((item, index) => (
                   <div
                     key={index}
                     className="flex items-center justify-between px-10 border-b-1 border-gray-200"
                   >
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.title}
                       className="w-30 h-30 object-cover"
+                      width={30}
+                      height={30}
                     />
                     <div className="flex justify-between">
                       <p className="font-bold">{item.title}</p>
