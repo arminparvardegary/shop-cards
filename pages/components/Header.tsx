@@ -9,7 +9,7 @@ const Header: React.FC<{
     quantity: number;
   }[];
   onRemoveCart: (id: number) => void;
-}> = ({ selectedData, onRemoveCart }) => {
+}> = ({ selectedData = [], onRemoveCart }) => { // Add default value for selectedData
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleModal = () => {
