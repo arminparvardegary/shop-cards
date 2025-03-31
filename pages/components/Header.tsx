@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
 
-const Header = ({ selectedData, onRemoveCart }) => {
+const Header: React.FC<{
+  selectedData: {
+    id: number;
+    title: string;
+    image: string;
+    quantity: number;
+  }[];
+  onRemoveCart: (id: number) => void;
+}> = ({ selectedData, onRemoveCart }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleModal = () => {
@@ -17,7 +25,11 @@ const Header = ({ selectedData, onRemoveCart }) => {
             onClick={toggleModal}
             className="relative"
           >
-            <img className="w-6 mr-5 cursor-pointer hover:opacity-70" src="../shop.svg" alt="shop card" />
+            <img
+              className="w-6 mr-5 cursor-pointer hover:opacity-70"
+              src="../shop.svg"
+              alt="shop card"
+            />
             <span className="absolute bottom-0 -left-2 bg-[#586053] w-5 h-5 text-center text-white text-sm  rounded-full">
               {selectedData.length}
             </span>
@@ -42,8 +54,10 @@ const Header = ({ selectedData, onRemoveCart }) => {
                       className="w-30 h-30 object-cover"
                     />
                     <div className="flex justify-between">
-                    <p className="font-bold">{item.title}</p>
-                    <p className="bg-[#586053] w-7 h-7 text-center text-white pt-0.5 rounded-full ml-4">{item.quantity}</p>
+                      <p className="font-bold">{item.title}</p>
+                      <p className="bg-[#586053] w-7 h-7 text-center text-white pt-0.5 rounded-full ml-4">
+                        {item.quantity}
+                      </p>
                     </div>
                     <span
                       onClick={() => onRemoveCart(item.id)}
