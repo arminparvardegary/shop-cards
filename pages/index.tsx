@@ -1,20 +1,46 @@
 import Header from "./components/Header";
-// import Footer from "./components/Footer";
+import React, { useState } from "react";
 import Card from "./components/ShopCard";
 
 export default function Home() {
+  const productsData = [
+    { id: 1, image: "../image/download-3.jpg", title: "Knurled Spitfire" },
+    { id: 2, image: "../image/download-5.jpg", title: "Diamond Cut Spitfire" },
+    { id: 3, image: "../image/download-6.jpg", title: "Kingston" },
+  ];
+
+  const [selectedProducts, setSelectedProducts] = useState([]);
+
+  const removeCart = (id) => {
+    setSelectedProducts((prevSelectedProducts) =>
+      prevSelectedProducts.filter((item) => item.id !== id)
+    );
+  }
+
+  const addToCart = (product) => {
+    setSelectedProducts((prevCart) => {
+      const existingProduct = prevCart.find((item) => item.id === product.id);
+      
+      if (existingProduct) {
+        return prevCart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        return [...prevCart, { ...product, quantity: 1 }];
+      }
+    });
+  };
+
   return (
     <div className="bg-white">
-      <Header/>  
+      <Header selectedData={selectedProducts} onRemoveCart={removeCart }/>  
       <main className=" flex  justify-center items-center flex-wrap gap-1 mt-10 mb-10">
-       <Card image="../image/download-3.jpg" title="Knurled Spitfire"/>
-       <Card image="../image/download-5.jpg" title="Diamond Cut Spitfire"/>
-       <Card image="../image/download-6.jpg" title="Kingston"/>
-       <Card image="../image/download-4.jpg" title="Hex Spitfire"/>
-       <Card image="../image/download-2.jpg" title="Bamboo Spitfire"/>
-       <Card image="../image/handle-18-1.jpg" title="Plain Hurricane"/>
+        {productsData.map((product) => (
+          <Card key={product.id} image={product.image} title={product.title}  onAddToCart={() => addToCart(product)}  />
+        ))}
        </main>
-      {/* <Footer/> */}
     </div>
   );
 }
